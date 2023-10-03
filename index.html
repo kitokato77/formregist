@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        form {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        #nama-rekomendasi {
+            margin-top: 8px;
+            font-style: italic;
+            color: #888;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+                document.addEventListener("DOMContentLoaded", function () {
+            const daftarNama = [
+                "Joni Brown",
+                "Maria Tampubolon",
+                "Alice Ming",
+                "Budi Maulana",
+                "Dodi Ahmad",
+                "Daris Rayan",
+                "Rayhan Muhammad",
+                "Clarrisa Rahim",
+                "Muhammad ...",
+            ];
+
+            const daftarJurusan = [
+                "Teknik Elektro",
+                "Teknik Informatika",
+                "Sistem Informasi",
+                "Teknik Komputer",
+                "Teknik Biomedik",
+                "Teknologi Informasi",
+                "Teknik Telekomunikasi",
+                "Teknologi Kedokteran",
+            ];
+
+            const daftarKodeNegara = [
+                { kode: "+1", negara: "United States" },
+                { kode: "+44", negara: "United Kingdom" },
+                { kode: "+62", negara: "Indonesia" },
+                { kode: "+81", negara: "Japan" },
+                { kode: "+91", negara: "India" },
+            ];
+
+            function tampilkanRekomendasi() {
+                const inputNama = document.getElementById("nama");
+                const rekomendasiContainer = document.getElementById("nama-rekomendasi");
+
+                const inputText = inputNama.value.toLowerCase();
+                const rekomendasi = daftarNama.filter(nama => nama.toLowerCase().startsWith(inputText));
+
+                rekomendasiContainer.textContent = rekomendasi.length > 0 ? `Rekomendasi: ${rekomendasi.join(", ")}` : "";
+            }
+
+            function tampilkanPilihanJurusan() {
+                const selectJurusan = document.getElementById("jurusan");
+
+                selectJurusan.innerHTML = "";
+
+                daftarJurusan.forEach(jurusan => {
+                    const option = document.createElement("option");
+                    option.value = jurusan;
+                    option.textContent = jurusan;
+                    selectJurusan.appendChild(option);
+                });
+            }
+
+            function tampilkanPilihanKodeNegara() {
+                const selectKodeNegara = document.getElementById("kode-negara");
+
+                selectKodeNegara.innerHTML = "";
+
+                daftarKodeNegara.forEach(item => {
+                    const option = document.createElement("option");
+                    option.value = item.kode;
+                    option.textContent = `${item.kode} - ${item.negara}`;
+                    selectKodeNegara.appendChild(option);
+                });
+            }
+
+            function tampilkanPopup() {
+                alert("Registrasi berhasil!");
+            }
+
+            document.getElementById("nama").addEventListener("input", tampilkanRekomendasi);
+
+            document.getElementById("jurusan").addEventListener("click", tampilkanPilihanJurusan);
+
+            document.getElementById("kode-negara").addEventListener("click", tampilkanPilihanKodeNegara);
+
+            document.getElementById("form-registrasi").addEventListener("submit", function (event) {
+                event.preventDefault();
+                tampilkanPopup();
+            });
+        });
+    </script>
+    <title>Form Registrasi</title>
+</head>
+<body>
+    <form id="form-registrasi">
+        <h2>Form Registrasi Mahasiswa</h2>
+
+        <label for="nama">Nama Mahasiswa:</label>
+        <input type="text" id="nama" name="nama" required>
+        <div id="nama-rekomendasi"></div>
+
+        <label for="nrp">NRP:</label>
+        <input type="text" id="nrp" name="nrp" required>
+
+        <label for="alamat">Alamat:</label>
+        <input type="text" id="alamat" name="alamat" required>
+
+        <label for="jurusan">Jurusan:</label>
+        <select id="jurusan" name="jurusan" required>
+        </select>
+
+        <label for="tgl_lahir">Tanggal Lahir:</label>
+        <input type="date" id="tgl_lahir" name="tgl_lahir" required>
+
+        <label for="telepon">Nomor Telepon:</label>
+        <div style="display: flex;">
+            <select id="kode-negara" name="kode_negara" style="flex: 0 0 30%;">
+            </select>
+            <input type="tel" id="telepon" name="telepon" pattern="[0-9]{10,12}" style="flex: 1;">
+        </div>
+
+        <label for="dosen">Dosen Wali:</label>
+        <input type="text" id="dosen" name="dosen" required>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
